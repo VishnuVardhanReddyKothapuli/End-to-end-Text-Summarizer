@@ -105,6 +105,52 @@ Evaluation metrics are saved to:
 artifacts/model_evaluation/metrics.csv
 ```
 
+## Research Notebooks
+
+The `research/` folder contains notebooks used to experiment with each stage before moving the code into `src/textSummarizer/`.
+
+Recommended notebook order:
+
+1. `research/Text_Summarization.ipynb`
+   - Initial end-to-end experiment.
+   - Useful for understanding the dataset, tokenizer, model, and evaluation flow.
+
+2. `research/01_data_ingestion.ipynb`
+   - Prototype for downloading and extracting the SAMSum dataset.
+   - Production code lives in `src/textSummarizer/components/data_ingestion.py`.
+
+3. `research/02_data_validation.ipynb`
+   - Prototype for checking whether required dataset folders exist.
+   - Production code lives in `src/textSummarizer/components/data_validation.py`.
+
+4. `research/03_data_transformation.ipynb`
+   - Prototype for tokenizing dialogues and summaries.
+   - Production code lives in `src/textSummarizer/components/data_transformation.py`.
+
+5. `research/04_model_trainer.ipynb`
+   - Prototype for training PEGASUS on the transformed dataset.
+   - Production code lives in `src/textSummarizer/components/model_trainer.py`.
+
+6. `research/trails.ipynb`
+   - Scratch notebook for small tests.
+   - This is optional and is not required to run the project.
+
+Use the notebooks for learning, debugging, and experimentation. Use `python main.py` for the actual reproducible pipeline run.
+
+Notebook run guidance:
+
+- Safe to run end-to-end:
+  - `research/01_data_ingestion.ipynb`
+  - `research/02_data_validation.ipynb`
+  - `research/03_data_transformation.ipynb`
+- Run carefully because they load or train PEGASUS:
+  - `research/04_model_trainer.ipynb`
+  - `research/Text_Summarization.ipynb`
+- Optional scratch notebook:
+  - `research/trails.ipynb`
+
+If you only want the project output, prefer `python main.py`. If you want to understand each step, run the notebooks in order.
+
 ## Run the API
 
 Start the FastAPI app:
