@@ -217,3 +217,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 artifacts/*
+test_imports.py
+research/logs/
+logs/
+summarizer-data.zip

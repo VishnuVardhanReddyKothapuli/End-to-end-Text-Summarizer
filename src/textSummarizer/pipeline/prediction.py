@@ -21,6 +21,8 @@ class PredictionPipeline:
     def predict(self, text: str) -> str:
         model_source, tokenizer_source = self._model_source()
         tokenizer = AutoTokenizer.from_pretrained(tokenizer_source)
-        gen_kwargs = {"length_penalty": 0.8, "num_beams": 8, "max_length": 128}
+        input_length = len(tokenizer.encode(text))
+        max_length = min(128, max(32, input_length // 2))
+        gen_kwargs = {"length_penalty": 0.8, "num_beams": 8, "max_length": max_length}
         summarizer = pipeline("summarization", model=model_source, tokenizer=tokenizer)
         return summarizer(text, **gen_kwargs)[0]["summary_text"]
