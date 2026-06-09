@@ -1,28 +1,25 @@
-import os
-
-from transformers import AutoTokenizer, pipeline
-
 from textSummarizer.config.configuration import ConfigurationManager
+from transformers import AutoTokenizer
+from transformers import pipeline
 
 
 class PredictionPipeline:
     def __init__(self):
-        config = ConfigurationManager()
-        self.prediction_config = config.get_model_evaluation_config()
-        self.trainer_config = config.get_model_trainer_config()
+        self.config = ConfigurationManager().get_model_evaluation_config()
 
-    def _model_source(self):
-        model_path = str(self.prediction_config.model_path)
-        tokenizer_path = str(self.prediction_config.tokenizer_path)
-        if os.path.exists(model_path) and os.path.exists(tokenizer_path):
-            return model_path, tokenizer_path
-        return self.trainer_config.model_ckpt, self.trainer_config.model_ckpt
 
-    def predict(self, text: str) -> str:
-        model_source, tokenizer_source = self._model_source()
-        tokenizer = AutoTokenizer.from_pretrained(tokenizer_source)
-        input_length = len(tokenizer.encode(text))
-        max_length = min(128, max(32, input_length // 2))
-        gen_kwargs = {"length_penalty": 0.8, "num_beams": 8, "max_length": max_length}
-        summarizer = pipeline("summarization", model=model_source, tokenizer=tokenizer)
-        return summarizer(text, **gen_kwargs)[0]["summary_text"]
+    
+    def predict(self, text):
+        tokenizer = AutoTokenizer.from_pretrained(self.config.tokenizer_path)
+        gen_kwargs = {"length_penalty": 0.8, "num_beams": 8, "max_length": 128}
+
+        pipe = pipeline("summarization", model=str(self.config.model_path), tokenizer=tokenizer)
+
+        print("Dialogue:")
+        print(text)
+
+        output = pipe(text, **gen_kwargs)[0]["summary_text"]
+        print("\nModel Summary:")
+        print(output)
+
+        return output
