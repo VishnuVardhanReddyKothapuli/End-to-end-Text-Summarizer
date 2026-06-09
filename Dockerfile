@@ -9,6 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY requirements.txt setup.py README.md ./
 COPY src ./src
 COPY config ./config
+COPY artifacts ./artifacts
 COPY params.yaml app.py main.py ./
 
 RUN pip install --upgrade pip
