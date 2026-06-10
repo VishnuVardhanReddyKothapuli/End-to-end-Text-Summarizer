@@ -196,13 +196,13 @@ Example request body:
 Build the image:
 
 ```bash
-docker build -t text-summarizer .
+docker build -t text-Summarizer .
 ```
 
 Run the container:
 
 ```bash
-docker run -p 8080:8080 text-summarizer
+docker run -p 8080:8080 text-Summarizer
 ```
 
 ## Notes
