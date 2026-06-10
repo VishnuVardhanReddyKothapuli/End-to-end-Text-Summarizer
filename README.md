@@ -210,3 +210,7 @@ docker run -p 8080:8080 text-summarizer
 - Full PEGASUS fine-tuning can take a long time on CPU.
 - Use a GPU runtime for faster model training.
 - If local trained artifacts do not exist, prediction falls back to the configured base checkpoint.
+
+
+ECR Repository URI
+- 784894236858.dkr.ecr.us-east-1.amazonaws.com/text-summarizer
