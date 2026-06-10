@@ -9,7 +9,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY requirements.txt setup.py README.md ./
 COPY src ./src
 COPY config ./config
-COPY artifacts ./artifacts
+# Create artifacts dir; copy contents only if they exist (artifacts are gitignored)
+RUN mkdir -p ./artifacts
+COPY artifact[s] ./artifacts
 COPY params.yaml app.py main.py ./
 
 RUN pip install --upgrade pip
